@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HanziStory — Every Chinese Character Has a Story</title>
+  <!-- Google AdSense 站点验证（网站所有权验证） -->
+  <meta name="google-adsense-account" content="ca-pub-5917471980636353">
+  <meta name="description" content="Learn Chinese characters through picture-book style stories, real ancient glyph evolution (oracle bone, bronze, seal script), and correct stroke-order animations.">
+  <link rel="stylesheet" href="styles.css?v=1784911467">
+  <!-- HanziWriter: 真实笔画顺序动画 (本地库，零 CDN 依赖) -->
+  <script src="lib/hanzi-writer.min.js"></script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8431005592738499" crossorigin="anonymous"></script>
+  <!-- Cloudflare Web Analytics (流量统计 beacon，token 在 Dashboard 创建站点后填入) -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "40a150551e5a422aa970d42c523a08af"}'></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="logo-area">
+        <a href="/" style="text-decoration:none;color:inherit;">
+          <div class="logo">Hanzi<span class="accent">Story</span></div>
+          <div class="tagline">Every Chinese character has a story</div>
+        </a>
+        <nav class="top-nav">
+          <a href="/pricing" class="nav-link">Pricing</a>
+        </nav>
+      </div>
+      <div class="auth-area" id="authArea">
+        <a class="google-btn" href="/auth/google">
+          <svg class="g-icon" viewBox="0 0 48 48" width="18" height="18">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span>Sign in with Google</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <input type="text" id="searchInput"
+          placeholder="Type any character or English — e.g. 人 · 火 · person · water · 龙"
+          autocomplete="off">
+        <button class="search-btn" id="searchBtn">Search</button>
+      </div>
+    </div>
+
+    <div class="chips" id="chips"></div>
+
+    <div id="home">
+      <div class="section-label" id="gridLabel">Open this picture book of characters</div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="detail" id="detail" style="display:none;"></div>
+    <div class="error-msg" id="errorDiv" style="display:none;"></div>
+
+    <!-- 带货专区：Amazon 学习资源推荐 -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span>📚</span> Tools That Help You Learn Chinese
+      </div>
+      <div class="resources-grid">
+
+        <a class="product-card" href="https://www.amazon.com/dp/B07DQD7CN5?tag=hanzistory-20" target="_blank" rel="sponsored">
+          <div class="product-cover" style="background: linear-gradient(135deg,#e74c3c,#c0392b);">
+            <div class="cover-title">HSK 1<br>标准教程</div>
+            <div class="cover-sub">Standard Course</div>
+          </div>
+          <div class="product-body">
+            <div class="product-stars">★★★★★</div>
+            <div class="product-name">HSK Standard Course 1</div>
+            <div class="product-desc">The most popular HSK textbook series, used by schools worldwide</div>
+            <div class="product-price">from $18</div>
+            <div class="product-btn">View on Amazon →</div>
+          </div>
+        </a>
+
+        <a class="product-card" href="https://www.amazon.com/dp/B07XN5XLH7?tag=hanzistory-20" target="_blank" rel="sponsored">
+          <div class="product-cover" style="background: linear-gradient(135deg,#3498db,#2980b9);">
+            <div class="cover-title">新实用<br>汉语</div>
+            <div class="cover-sub">New Practical Chinese Reader</div>
+          </div>
+          <div class="product-body">
+            <div class="product-stars">★★★★½</div>
+            <div class="product-name">New Practical Chinese Reader 1</div>
+            <div class="product-desc">Comprehensive beginner textbook with audio support</div>
+            <div class="product-price">from $22</div>
+            <div class="product-btn">View on Amazon →</div>
+          </div>
+        </a>
+
+        <a class="product-card" href="https://www.amazon.com/dp/0415827896?tag=hanzistory-20" target="_blank" rel="sponsored">
+          <div class="product-cover" style="background: linear-gradient(135deg,#27ae60,#1e8449);">
+            <div class="cover-title">Integrated<br>Chinese</div>
+            <div class="cover-sub">Level 1 Part 1</div>
+          </div>
+          <div class="product-body">
+            <div class="product-stars">★★★★★</div>
+            <div class="product-name">Integrated Chinese L1</div>
+            <div class="product-desc">University-standard textbook with workbook and audio</div>
+            <div class="product-price">from $35</div>
+            <div class="product-btn">View on Amazon →</div>
+          </div>
+        </a>
+
+        <a class="product-card" href="https://www.amazon.com/s?k=chinese+dictionary+纸版&tag=hanzistory-20" target="_blank" rel="sponsored">
+          <div class="product-cover" style="background: linear-gradient(135deg,#f39c12,#d68910);">
+            <div class="cover-title">汉<br>词典</div>
+            <div class="cover-sub">Chinese-English Dictionary</div>
+          </div>
+          <div class="product-body">
+            <div class="product-stars">★★★★½</div>
+            <div class="product-name">Chinese-English Dictionary</div>
+            <div class="product-desc">Essential reference dictionary for serious learners</div>
+            <div class="product-price">from $25</div>
+            <div class="product-btn">View on Amazon →</div>
+          </div>
+        </a>
+
+      </div>
+      <div class="resources-note">As an Amazon Associate, we earn from qualifying purchases. Prices and availability subject to change.</div>
+    </div>
+
+    <div class="footer">
+      <!-- Google AdSense Display Ad -->
+      <div class="ad-unit">
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-8431005592738499"
+          data-ad-slot="auto"
+          data-ad-format="auto"
+          data-full-width-responsive="true">
+        </ins>
+      </div>
+
+      <p><strong>HanziStory</strong> &mdash; Every Chinese character has a story.</p>
+      <p>
+        Ancient glyph images from
+        <a href="https://github.com/linjialiang/etymology-svg" target="_blank" rel="noopener">etymology-svg</a> (open-source) &middot;
+        Also referenced:
+        <a href="https://hanziyuan.net/" target="_blank" rel="noopener">Richard Sears' Chinese Etymology (汉字叔叔)</a> &middot;
+        <a href="https://www.jgwlbq.org.cn/home" target="_blank" rel="noopener">殷契文渊 Yinqi Wenyuan</a>
+      </p>
+      <p style="margin-top:6px;opacity:0.7;">Stroke animations powered by <a href="https://chanind.github.io/hanzi-writer/" target="_blank" rel="noopener">HanziWriter</a> &mdash; real stroke order, no external CDN.</p>
+    </div>
+  </div>
+
+  <script src="data/characters.js"></script>
+  <script src="app.js?v=1784911467"></script>
+</body>
+</html>

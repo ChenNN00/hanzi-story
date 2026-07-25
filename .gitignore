@@ -1,0 +1,17 @@
+# Wrangler (Cloudflare deployment state — not needed in git)
+.wrangler/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Sensitive credentials (if any)
+# .env
+# .env.local
+
+# Build artifacts (if any)
+# dist/
+# build/
